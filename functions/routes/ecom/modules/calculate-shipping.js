@@ -76,7 +76,7 @@ exports.post = ({ appSdk }, req, res) => {
   if (params.items) {
     // send POST request to Datafrete REST API
     return axios.post(
-      'https://mandabem.com.br/ws/valor_envio',
+      appData.datafrete_endpoint || 'https://apresentacao.api.dev.datafreteapi.com',
       {
         token: appData.datafrete_token,
         cepOrigem: originZip,
