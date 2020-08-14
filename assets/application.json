@@ -31,6 +31,119 @@
     "products/price": [],
     "products/variations/price": []
   },
+  "admin_settings": {
+    "zip": {
+      "schema": {
+        "type": "string",
+        "maxLength": 9,
+        "pattern": "^[0-9]{5}-?[0-9]{3}$",
+        "title": "CEP de origem",
+        "description": "Código postal do remetente para cálculo do frete"
+      },
+      "hide": true
+    },
+    "datafrete_token": {
+      "schema": {
+        "type": "string",
+        "maxLength": 255,
+        "title": "Datafrete token",
+        "description": "Solitite no Datafrete o token para REST API cálculo frete"
+      },
+      "hide": true
+    },
+    "datafrete_doc": {
+      "schema": {
+        "type": "string",
+        "maxLength": 255,
+        "title": "Documento da empresa",
+        "description": "Número do documento associado à sua conta Datafrete"
+      },
+      "hide": true
+    },
+    "datafrete_endpoint": {
+      "schema": {
+        "type": "string",
+        "maxLength": 255,
+        "title": "Datafrete API endpoint",
+        "default": "https://apresentacao.api.dev.datafreteapi.com"
+      },
+      "hide": true
+    },
+    "free_shipping_rules": {
+      "schema": {
+        "title": "Regras de frete grátis",
+        "description": "Deve ser configurado em conformidade às tabelas na sua conta Datafrete",
+        "type": "array",
+        "maxItems": 300,
+        "items": {
+          "title": "Regra de frete grátis",
+          "type": "object",
+          "minProperties": 1,
+          "properties": {
+            "zip_range": {
+              "title": "Faixa de CEP",
+              "type": "object",
+              "required": [
+                "min",
+                "max"
+              ],
+              "properties": {
+                "min": {
+                  "type": "integer",
+                  "minimum": 10000,
+                  "maximum": 999999999,
+                  "title": "CEP inicial"
+                },
+                "max": {
+                  "type": "integer",
+                  "minimum": 10000,
+                  "maximum": 999999999,
+                  "title": "CEP final"
+                }
+              }
+            },
+            "min_amount": {
+              "type": "number",
+              "minimum": 1,
+              "maximum": 999999999,
+              "title": "Valor mínimo da compra"
+            }
+          }
+        }
+      },
+      "hide": false
+    },
+    "posting_deadline": {
+      "schema": {
+        "title": "Prazo de postagem",
+        "type": "object",
+        "required": [
+          "days"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "days": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 999999,
+            "title": "Número de dias",
+            "description": "Dias de prazo para postar os produtos após a compra"
+          },
+          "working_days": {
+            "type": "boolean",
+            "default": true,
+            "title": "Dias úteis"
+          },
+          "after_approval": {
+            "type": "boolean",
+            "default": true,
+            "title": "Após aprovação do pagamento"
+          }
+        }
+      },
+      "hide": false
+    }
+  },
   "auth_callback_uri": "https://us-central1-ecom-datafrete.cloudfunctions.net/app/ecom/auth-callback",
   "version": "1.0.0"
 }
