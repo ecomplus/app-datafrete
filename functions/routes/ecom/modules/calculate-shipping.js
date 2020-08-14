@@ -185,6 +185,7 @@ exports.post = ({ appSdk }, req, res) => {
               }
             })
           })
+          res.send(response)
         } else {
           // console.log(data)
           const err = new Error('Invalid Datafrete calculate response')
