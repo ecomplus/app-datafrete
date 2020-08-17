@@ -1,7 +1,7 @@
 {
   "app": {
-    "title": "",
-    "short_description": "",
-    "category": "tools"
+    "title": "Datafrete",
+    "short_description": "Cálculo de frete através do gateway Datafrete",
+    "category": "shipping"
   }
 }
