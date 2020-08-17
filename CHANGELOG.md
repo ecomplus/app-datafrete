@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## 1.0.0 (2020-08-17)
+
+
+### Features
+
+* **calculate-shipping:** simple calculate shipping handler with datafrete api ([e42f128](https://github.com/ecomplus/application-starter/commit/e42f1282ecc47bbcda65b5307f580020b32777bc))
+* **ecom-config:** setup app admin settings fields ([70d525f](https://github.com/ecomplus/application-starter/commit/70d525fde1bfa3219ed52a5dbbff6b4077f26637))
+* **ecom-config:** setup app config ([c9dfe16](https://github.com/ecomplus/application-starter/commit/c9dfe161346077cdd331aca614046ed7bfc88b09))
+
+
+### Bug Fixes
+
+* **calculate-shipping:** fix datafrete ws endpoint ([bbc7ba5](https://github.com/ecomplus/application-starter/commit/bbc7ba58915546a164451cd966f4faea47735487))
+* **calculate-shipping:** send success response ([8fda086](https://github.com/ecomplus/application-starter/commit/8fda086d46ec87822607505a70663d212eb9e880))
+
 ## [1.0.0-starter.15](https://github.com/ecomplus/application-starter/compare/v1.0.0-starter.14...v1.0.0-starter.15) (2020-07-26)
 
 
