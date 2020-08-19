@@ -1,14 +1,14 @@
 # App Datafrete
 
-[![Deploy](https://github.com/ecomplus/app-datafrete/workflows/Deploy/badge.svg)](https://github.com/ecomplus/app-datafrete/actions?workflow=Deploy) [![Call refresh tokens](https://github.com/ecomplus/app-datafrete/workflows/Call%20refresh%20tokens/badge.svg)](https://github.com/ecomplus/app-datafrete/actions?workflow=Call+refresh+tokens) [![License MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Deploy](https://github.com/ecomplus/app-datafrete/workflows/Deploy/badge.svg)](https://github.com/ecomplus/app-datafrete/actions?workflow=Deploy) [![Call refresh tokens](https://github.com/ecomplus/app-datafrete/workflows/Call%20refresh%20tokens/badge.svg)](https://github.com/ecomplus/app-datafrete/actions?workflow=Call+refresh+tokens) [![Publish](https://github.com/ecomplus/app-datafrete/workflows/Publish/badge.svg)](https://github.com/ecomplus/app-datafrete/actions?workflow=Publish) [![License MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 E-Com Plus app to integrate Datafrete shipping gateway
+
+[CHANGELOG](https://github.com/ecomplus/app-datafrete/blob/master/CHANGELOG.md)
 
 # E-Com Plus Application Starter
 
 :dog: Boilerplate for E-Com Plus apps with [Firebase](https://firebase.google.com/) Cloud Functions and GitHub Actions.
-
-[CHANGELOG](https://github.com/ecomplus/application-starter/blob/master/CHANGELOG.md)
 
 ## Getting started
 
