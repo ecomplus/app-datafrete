@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.0.1](https://github.com/ecomplus/application-starter/compare/v1.0.0...v1.0.1) (2020-09-02)
+
+
+### Bug Fixes
+
+* **calculate-shipping:** accepting 'valor_frete_exibicao' zero for free shipping ([52efb9f](https://github.com/ecomplus/application-starter/commit/52efb9f5d9716536ec80657d5e50cf7288342e76))
+* **deps:** update all non-major dependencies ([#6](https://github.com/ecomplus/application-starter/issues/6)) ([a639ffe](https://github.com/ecomplus/application-starter/commit/a639ffeebd7902680341551623cc0a964b5a28c9))
+
 ## 1.0.0 (2020-08-17)
 
 
