@@ -155,7 +155,10 @@ exports.post = ({ appSdk }, req, res) => {
           result.data.forEach(dfService => {
             // parse to E-Com Plus shipping line object
             const serviceCode = String(dfService.cod_tabela)
-            const price = parseFloat(dfService.valor_frete_exibicao || dfService.valor_frete)
+            const price = parseFloat(
+              dfService.valor_frete_exibicao >= 0 && dfService.valor_frete_exibicao !== null
+                ? dfService.valor_frete_exibicao : dfService.valor_frete
+            )
 
             // push shipping service object to response
             response.shipping_services.push({
