@@ -212,6 +212,7 @@ exports.post = ({ appSdk }, req, res) => {
           } else {
             result = data
           }
+          console.log('> Datafrete invalid result:', data)
           if (result && result.data) {
             // Datafrete error message
             return res.status(409).send({
@@ -219,7 +220,6 @@ exports.post = ({ appSdk }, req, res) => {
               message: result.data
             })
           }
-          console.log('> Datafrete invalid result:', data)
           message = `${message} (${response.status})`
         } else {
           console.error(err)
