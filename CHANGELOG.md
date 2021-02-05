@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.0.3](https://github.com/ecomplus/application-starter/compare/v1.0.2...v1.0.3) (2021-02-05)
+
+
+### Bug Fixes
+
+* **ecom-config:** unset app authentication (not needed) ([70ec88a](https://github.com/ecomplus/application-starter/commit/70ec88a1ff5d8dbe1c24a786ce83e80fc0024a4c))
+
 ### [1.0.2](https://github.com/ecomplus/application-starter/compare/v1.0.1...v1.0.2) (2020-11-05)
 
 
