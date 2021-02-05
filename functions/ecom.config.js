@@ -11,7 +11,7 @@ const app = {
   slug: 'datafrete',
   type: 'external',
   state: 'active',
-  authentication: true,
+  authentication: false,
 
   /**
    * Uncomment modules above to work with E-Com Plus Mods API on Storefront.
@@ -48,10 +48,10 @@ const app = {
    */
   auth_scope: {
     'stores/me': [
-      'GET'            // Read store info
+      // 'GET'            // Read store info
     ],
     procedures: [
-      'POST'           // Create procedures to receive webhooks
+      // 'POST'           // Create procedures to receive webhooks
     ],
     products: [
       // 'GET',           // Read products with public and private fields
