@@ -1,4 +1,5 @@
 const axios = require('axios')
+const ecomUtils = require('@ecomplus/utils')
 
 exports.post = ({ appSdk }, req, res) => {
   /**
@@ -29,7 +30,8 @@ exports.post = ({ appSdk }, req, res) => {
   }
 
   const destinationZip = params.to ? params.to.zip.replace(/\D/g, '') : ''
-  const originZip = params.from ? params.from.zip.replace(/\D/g, '')
+  const originZip = params.from
+    ? params.from.zip.replace(/\D/g, '')
     : appData.zip ? appData.zip.replace(/\D/g, '') : ''
 
   const checkZipCode = rule => {
@@ -86,7 +88,8 @@ exports.post = ({ appSdk }, req, res) => {
           plataforma: 'ECOM'
         },
 
-        produtos: params.items.map(({ sku, name, price, quantity, dimensions, weight }) => {
+        produtos: params.items.map(item => {
+          const { sku, name, quantity, dimensions, weight } = item
           // parse cart items to Datafrete schema
           let kgWeight = 0
           if (weight && weight.value) {
@@ -126,7 +129,7 @@ exports.post = ({ appSdk }, req, res) => {
             largura: cmDimensions.width || 0,
             comprimento: cmDimensions.length || 0,
             peso: kgWeight,
-            preco: price,
+            preco: ecomUtils.price(item),
             qtd: quantity,
             volume: 0
           }
@@ -157,7 +160,8 @@ exports.post = ({ appSdk }, req, res) => {
             const serviceCode = String(dfService.cod_tabela)
             const price = parseFloat(
               dfService.valor_frete_exibicao >= 0 && dfService.valor_frete_exibicao !== null
-                ? dfService.valor_frete_exibicao : dfService.valor_frete
+                ? dfService.valor_frete_exibicao
+                : dfService.valor_frete
             )
 
             // push shipping service object to response
@@ -165,7 +169,8 @@ exports.post = ({ appSdk }, req, res) => {
               label: dfService.descricao || dfService.nome_transportador,
               carrier: dfService.nome_transportador,
               carrier_doc_number: typeof dfService.cnpj_transportador === 'string'
-                ? dfService.cnpj_transportador.replace(/\D/g, '').substr(0, 19) : undefined,
+                ? dfService.cnpj_transportador.replace(/\D/g, '').substr(0, 19)
+                : undefined,
               service_name: `${(dfService.descricao || serviceCode)} (Datafrete)`,
               service_code: serviceCode,
               shipping_line: {
