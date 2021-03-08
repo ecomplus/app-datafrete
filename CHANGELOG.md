@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.0.4](https://github.com/ecomplus/application-starter/compare/v1.0.3...v1.0.4) (2021-03-08)
+
+
+### Bug Fixes
+
+* **calculate-shipping:** better handling item prices (`final_price`) ([e5037af](https://github.com/ecomplus/application-starter/commit/e5037afa30871e49532ee293c9cc00071d3b36d1))
+
 ### [1.0.3](https://github.com/ecomplus/application-starter/compare/v1.0.2...v1.0.3) (2021-02-05)
 
 
