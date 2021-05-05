@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.0.5](https://github.com/ecomplus/application-starter/compare/v1.0.4...v1.0.5) (2021-05-05)
+
+
+### Bug Fixes
+
+* **calculate-shipping:** prefer `nome_transportador` field for label ([0ef9ab1](https://github.com/ecomplus/application-starter/commit/0ef9ab127f2a649a9d2563890efe13f2051a2754))
+* **deps:** update all non-major dependencies ([#13](https://github.com/ecomplus/application-starter/issues/13)) ([1e1b07f](https://github.com/ecomplus/application-starter/commit/1e1b07f8c24f409c727e766f91ce1834722cdcb6))
+
 ### [1.0.4](https://github.com/ecomplus/application-starter/compare/v1.0.3...v1.0.4) (2021-03-08)
 
 
