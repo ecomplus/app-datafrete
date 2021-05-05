@@ -166,7 +166,7 @@ exports.post = ({ appSdk }, req, res) => {
 
             // push shipping service object to response
             response.shipping_services.push({
-              label: dfService.descricao || dfService.nome_transportador,
+              label: dfService.nome_transportador || dfService.descricao,
               carrier: dfService.nome_transportador,
               carrier_doc_number: typeof dfService.cnpj_transportador === 'string'
                 ? dfService.cnpj_transportador.replace(/\D/g, '').substr(0, 19)
