@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.1.0](https://github.com/ecomplus/application-starter/compare/v1.0.5...v1.1.0) (2021-05-29)
+
+
+### Features
+
+* **calculate-shipping:** handling warehouses for multi cd ([06e2697](https://github.com/ecomplus/application-starter/commit/06e2697196a5216a94cdfd378a4716a6b10dd463))
+
 ### [1.0.5](https://github.com/ecomplus/application-starter/compare/v1.0.4...v1.0.5) (2021-05-05)
 
 
