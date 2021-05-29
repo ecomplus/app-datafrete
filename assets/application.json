@@ -153,6 +153,12 @@
           ],
           "additionalProperties": false,
           "properties": {
+            "code": {
+              "type": "string",
+              "maxLength": 30,
+              "pattern": "^[A-Za-z0-9-_]{2,30}$",
+              "title": "Código do CD"
+            },
             "zip": {
               "type": "string",
               "maxLength": 9,
@@ -189,5 +195,5 @@
     }
   },
   "auth_callback_uri": "https://us-central1-ecom-datafrete.cloudfunctions.net/app/ecom/auth-callback",
-  "version": "1.0.5"
+  "version": "1.1.0"
 }
