@@ -30,10 +30,6 @@ exports.post = ({ appSdk }, req, res) => {
   }
 
   const destinationZip = params.to ? params.to.zip.replace(/\D/g, '') : ''
-  const originZip = params.from
-    ? params.from.zip.replace(/\D/g, '')
-    : appData.zip ? appData.zip.replace(/\D/g, '') : ''
-
   const checkZipCode = rule => {
     // validate rule zip range
     if (destinationZip && rule.zip_range) {
@@ -43,11 +39,36 @@ exports.post = ({ appSdk }, req, res) => {
     return true
   }
 
+  let originZip, warehouseCode
+  if (params.from) {
+    originZip = params.from.zip
+  } else if (Array.isArray(appData.warehouses) && appData.warehouses.length) {
+    for (let i = 0; i < appData.warehouses.length; i++) {
+      const warehouse = appData.warehouses[i]
+      if (warehouse && warehouse.zip && checkZipCode(warehouse)) {
+        const { code } = warehouse
+        if (
+          code && params.items &&
+          params.items.find(({ inventory }) => inventory && Object.keys(inventory).length && !inventory[code])
+        ) {
+          // item not available on current warehouse
+          continue
+        }
+        originZip = warehouse.zip
+        warehouseCode = code
+      }
+    }
+  }
+  if (!originZip) {
+    originZip = appData.zip
+  }
+  originZip = typeof originZip === 'string' ? originZip.replace(/\D/g, '') : ''
+
   // search for configured free shipping rule
   if (Array.isArray(appData.free_shipping_rules)) {
     for (let i = 0; i < appData.free_shipping_rules.length; i++) {
       const rule = appData.free_shipping_rules[i]
-      if (checkZipCode(rule)) {
+      if (rule && checkZipCode(rule)) {
         if (!rule.min_amount) {
           response.free_shipping_from_value = 0
           break
@@ -190,6 +211,7 @@ exports.post = ({ appSdk }, req, res) => {
                   days: 3,
                   ...appData.posting_deadline
                 },
+                warehouse_code: warehouseCode,
                 flags: ['datafrete-ws', `datafrete-${serviceCode}`.substr(0, 20)]
               }
             })

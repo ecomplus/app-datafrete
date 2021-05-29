@@ -259,6 +259,12 @@ const app = {
           required: ['zip'],
           additionalProperties: false,
           properties: {
+            code: {
+              type: 'string',
+              maxLength: 30,
+              pattern: '^[A-Za-z0-9-_]{2,30}$',
+              title: 'Código do CD'
+            },
             zip: {
               type: 'string',
               maxLength: 9,
