@@ -49,7 +49,7 @@ exports.post = ({ appSdk }, req, res) => {
         const { code } = warehouse
         if (
           code && params.items &&
-          params.items.find(({ inventory }) => inventory && Object.keys(inventory).length && !inventory[code])
+          params.items.find(({ quantity, inventory }) => inventory && Object.keys(inventory).length && !(inventory[code] >= quantity))
         ) {
           // item not available on current warehouse
           continue
