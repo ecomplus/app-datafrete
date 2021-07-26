@@ -266,13 +266,10 @@ const app = {
               title: 'Código do CD'
             },
             datafrete_token: {
-              schema: {
-                type: 'string',
-                maxLength: 255,
-                title: 'Datafrete token',
-                description: 'Token para REST API do Datafrete na filial do respectivo CD'
-              },
-              hide: true
+              type: 'string',
+              maxLength: 255,
+              title: 'Datafrete token',
+              description: 'Token para REST API do Datafrete na filial do respectivo CD'
             },
             zip: {
               type: 'string',
