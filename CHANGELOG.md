@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.2.1](https://github.com/ecomplus/application-starter/compare/v1.2.0...v1.2.1) (2021-07-26)
+
+
+### Bug Fixes
+
+* **ecom-config:** fix admin settings `warehouses` schema ([08bfc31](https://github.com/ecomplus/application-starter/commit/08bfc316a5f8c8d6f358ac64a0f9047d5ba150b2))
+
 ## [1.2.0](https://github.com/ecomplus/application-starter/compare/v1.1.0...v1.2.0) (2021-07-26)
 
 
