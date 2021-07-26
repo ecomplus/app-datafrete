@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.2.0](https://github.com/ecomplus/application-starter/compare/v1.1.0...v1.2.0) (2021-07-26)
+
+
+### Features
+
+* **multi-cd:** handle multiple (per CD) datafrete tokens ([a262ce1](https://github.com/ecomplus/application-starter/commit/a262ce1bf17037e59f43ec69e872c55074f7cb0e))
+
+
+### Bug Fixes
+
+* **calculate-shipping:** check available stock per warehouse ([de9de24](https://github.com/ecomplus/application-starter/commit/de9de24eeeb712ddd1566bb68dfafa2dc9e86e45))
+* **deps:** update all non-major dependencies ([#33](https://github.com/ecomplus/application-starter/issues/33)) ([1570e89](https://github.com/ecomplus/application-starter/commit/1570e896924f3a53e4c3de42d846dc97230853e3))
+
 ## [1.1.0](https://github.com/ecomplus/application-starter/compare/v1.0.5...v1.1.0) (2021-05-29)
 
 
