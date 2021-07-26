@@ -160,13 +160,10 @@
               "title": "Código do CD"
             },
             "datafrete_token": {
-              "schema": {
-                "type": "string",
-                "maxLength": 255,
-                "title": "Datafrete token",
-                "description": "Token para REST API do Datafrete na filial do respectivo CD"
-              },
-              "hide": true
+              "type": "string",
+              "maxLength": 255,
+              "title": "Datafrete token",
+              "description": "Token para REST API do Datafrete na filial do respectivo CD"
             },
             "zip": {
               "type": "string",
@@ -204,5 +201,5 @@
     }
   },
   "auth_callback_uri": "https://us-central1-ecom-datafrete.cloudfunctions.net/app/ecom/auth-callback",
-  "version": "1.2.0"
+  "version": "1.2.1"
 }
