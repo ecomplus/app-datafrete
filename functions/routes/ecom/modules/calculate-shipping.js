@@ -17,7 +17,8 @@ exports.post = ({ appSdk }, req, res) => {
   // merge all app options configured by merchant
   const appData = Object.assign({}, application.data, application.hidden_data)
 
-  if (!appData.datafrete_doc || !appData.datafrete_token) {
+  let token = appData.datafrete_token
+  if (!appData.datafrete_doc || !token) {
     // must have configured Datafrete doc number and token
     return res.status(409).send({
       error: 'CALCULATE_AUTH_ERR',
@@ -47,14 +48,20 @@ exports.post = ({ appSdk }, req, res) => {
       const warehouse = appData.warehouses[i]
       if (warehouse && warehouse.zip && checkZipCode(warehouse)) {
         const { code } = warehouse
+        if (!code) {
+          continue
+        }
         if (
-          code && params.items &&
+          params.items &&
           params.items.find(({ quantity, inventory }) => inventory && Object.keys(inventory).length && !(inventory[code] >= quantity))
         ) {
           // item not available on current warehouse
           continue
         }
         originZip = warehouse.zip
+        if (warehouse.datafrete_token) {
+          token = warehouse.datafrete_token
+        }
         warehouseCode = code
       }
     }
@@ -101,7 +108,7 @@ exports.post = ({ appSdk }, req, res) => {
     return axios.post(
       appData.datafrete_endpoint || 'https://apresentacao.api.dev.datafreteapi.com',
       {
-        token: appData.datafrete_token,
+        token,
         cepOrigem: originZip,
         cepDestino: destinationZip,
         infComp: {
