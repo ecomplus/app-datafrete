@@ -17,8 +17,9 @@ exports.post = ({ appSdk }, req, res) => {
   // merge all app options configured by merchant
   const appData = Object.assign({}, application.data, application.hidden_data)
 
+  let docNumber = appData.datafrete_doc
   let token = appData.datafrete_token
-  if (!appData.datafrete_doc || !token) {
+  if (!docNumber || !token) {
     // must have configured Datafrete doc number and token
     return res.status(409).send({
       error: 'CALCULATE_AUTH_ERR',
@@ -59,6 +60,9 @@ exports.post = ({ appSdk }, req, res) => {
           continue
         }
         originZip = warehouse.zip
+        if (warehouse.datafrete_doc) {
+          docNumber = warehouse.datafrete_doc
+        }
         if (warehouse.datafrete_token) {
           token = warehouse.datafrete_token
         }
@@ -112,7 +116,7 @@ exports.post = ({ appSdk }, req, res) => {
         cepOrigem: originZip,
         cepDestino: destinationZip,
         infComp: {
-          doc_empresa: appData.datafrete_doc,
+          doc_empresa: docNumber,
           plataforma: 'ECOM'
         },
 

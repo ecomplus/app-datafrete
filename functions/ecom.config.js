@@ -271,6 +271,12 @@ const app = {
               title: 'Datafrete token',
               description: 'Token para REST API do Datafrete na filial do respectivo CD'
             },
+            datafrete_doc: {
+              type: 'string',
+              maxLength: 255,
+              title: 'Documento da filial',
+              description: 'CNPJ da filial associado à sua conta Datafrete'
+            },
             zip: {
               type: 'string',
               maxLength: 9,
