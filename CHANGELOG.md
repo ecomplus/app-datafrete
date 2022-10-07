@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.4.0](https://github.com/ecomplus/application-starter/compare/v1.3.0...v1.4.0) (2022-10-07)
+
+
+### Features
+
+* new /datafrete/webhook endpoint for fulfillment ([0bfd7ba](https://github.com/ecomplus/application-starter/commit/0bfd7ba8c28f79d0edd843b96b3ec851fe6ae5e1))
+
+
+### Bug Fixes
+
+* **deps:** update @ecomplus/application-sdk to v1.15.5 firestore ([286ea89](https://github.com/ecomplus/application-starter/commit/286ea894ceeeae50f45ad0bb68d3191e69d79df5))
+* **deps:** update all non-major dependencies ([#46](https://github.com/ecomplus/application-starter/issues/46)) ([a83a7aa](https://github.com/ecomplus/application-starter/commit/a83a7aaa0be9652d0e91f40a5b80b9b9ff8e1cf5))
+* **deps:** update dependency firebase-admin to v10 ([#50](https://github.com/ecomplus/application-starter/issues/50)) ([8a80b45](https://github.com/ecomplus/application-starter/commit/8a80b45648b60cd2598bbb2912a833d2b5a3946e))
+
 ## [1.3.0](https://github.com/ecomplus/application-starter/compare/v1.2.1...v1.3.0) (2021-07-27)
 
 
