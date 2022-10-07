@@ -2,6 +2,8 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.0.0](https://github.com/ecomplus/application-starter/compare/v1.4.0...v2.0.0) (2022-10-07)
+
 ## [1.4.0](https://github.com/ecomplus/application-starter/compare/v1.3.0...v1.4.0) (2022-10-07)
 
 
