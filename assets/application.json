@@ -4,7 +4,7 @@
   "slug": "datafrete",
   "type": "external",
   "state": "active",
-  "authentication": false,
+  "authentication": true,
   "modules": {
     "calculate_shipping": {
       "enabled": true,
@@ -18,7 +18,10 @@
     "brands": [],
     "categories": [],
     "customers": [],
-    "orders": [],
+    "orders": [
+      "GET",
+      "PATCH"
+    ],
     "carts": [],
     "orders/fulfillments": [],
     "orders/payments_history": [],
@@ -207,5 +210,5 @@
     }
   },
   "auth_callback_uri": "https://us-central1-ecom-datafrete.cloudfunctions.net/app/ecom/auth-callback",
-  "version": "1.3.0"
+  "version": "2.0.0"
 }
