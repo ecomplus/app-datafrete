@@ -23,7 +23,9 @@
       "PATCH"
     ],
     "carts": [],
-    "orders/fulfillments": [],
+    "orders/fulfillments": [
+      "POST"
+    ],
     "orders/payments_history": [],
     "products/quantity": [],
     "products/variations/quantity": [],
@@ -210,5 +212,5 @@
     }
   },
   "auth_callback_uri": "https://us-central1-ecom-datafrete.cloudfunctions.net/app/ecom/auth-callback",
-  "version": "2.0.0"
+  "version": "2.0.1"
 }
