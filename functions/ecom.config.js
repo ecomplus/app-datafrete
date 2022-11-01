@@ -101,7 +101,7 @@ const app = {
      */
     'orders/fulfillments': [
       // 'GET',           // List/read order fulfillment and tracking events
-      // 'POST',          // Create fulfillment event with new status
+      'POST',             // Create fulfillment event with new status
       // 'DELETE',        // Delete fulfillment event
     ],
     'orders/payments_history': [
