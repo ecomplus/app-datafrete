@@ -1,6 +1,6 @@
 const { operatorToken } = require('../../__env')
 
-const datafreteServerIps = [/* */]
+// const datafreteServerIps = []
 
 exports.post = async ({ appSdk }, req, res) => {
   if (operatorToken !== req.get('x-operator-token')) {
@@ -18,7 +18,7 @@ exports.post = async ({ appSdk }, req, res) => {
       number,
       fulfillment,
       invoices,
-      tracking_codes,
+      tracking_codes: trackingCodes
     }
   } = req.body
   if (!storeId || !number || !fulfillment || !fulfillment.status) {
@@ -36,32 +36,43 @@ exports.post = async ({ appSdk }, req, res) => {
   if (order.fulfillment_status && order.fulfillment_status.current === fulfillment.status) {
     return res.sendStatus(304)
   }
-  if (invoices || tracking_codes) {
-    let shippingLineId = fulfillment.shipping_line_id
-    if (!shippingLineId) {
-      for (let i = 0; i < order.shipping_lines.length; i++) {
-        if (order.shipping_lines[i].flags && order.shipping_lines[i].flags.includes('datafrete-ws')) {
-          shippingLineId = order.shipping_lines[i]._id
-          break
+  try {
+    if (invoices || trackingCodes) {
+      let shippingLineId = fulfillment.shipping_line_id
+      if (!shippingLineId) {
+        for (let i = 0; i < order.shipping_lines.length; i++) {
+          if (order.shipping_lines[i].flags && order.shipping_lines[i].flags.includes('datafrete-ws')) {
+            shippingLineId = order.shipping_lines[i]._id
+            break
+          }
         }
       }
+      await appSdk.apiRequest(
+        storeId,
+        `orders/${order._id}/shipping_lines/${(shippingLineId || '0')}.json`,
+        'PATCH', {
+          invoices,
+          trackingCodes
+        },
+        auth
+      )
+      console.log('Shipping line updated')
     }
-    await appSdk.apiRequest(
+    const { response: { status } } = await appSdk.apiRequest(
       storeId,
-      `orders/${order._id}/shipping_lines/${(shippingLineId || '0')}.json`,
-      'PATCH', {
-        invoices,
-        tracking_codes,
-      },
+      `orders/${order._id}/fulfillments.json`,
+      'POST',
+      fulfillment,
       auth
     )
+    res.sendStatus(status)
+  } catch (error) {
+    console.error(error)
+    if (error.response && error.response.status) {
+      res.status(error.response.status)
+      res.send(error.response.data)
+    } else {
+      res.sendStatus(500)
+    }
   }
-  const { response: { status } } = await appSdk.apiRequest(
-    storeId,
-    `orders/${order._id}/fulfillments.json`,
-    'POST',
-    fulfillment,
-    auth
-  )
-  res.sendStatus(status)
 }
