@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.0.1](https://github.com/ecomplus/application-starter/compare/v2.0.0...v2.0.1) (2022-11-01)
+
+
+### Bug Fixes
+
+* add orders/fulfillments POST to authentication scope ([2e539a0](https://github.com/ecomplus/application-starter/commit/2e539a0133feb1ded16ddb1ca061f879d71a9464))
+* better handling store api error on datafrete webhook ([e4ee5d2](https://github.com/ecomplus/application-starter/commit/e4ee5d26bb7bc3678f5ba8158c3c91bc5fc9cdbe))
+
 ## [2.0.0](https://github.com/ecomplus/application-starter/compare/v1.4.0...v2.0.0) (2022-10-07)
 
 ## [1.4.0](https://github.com/ecomplus/application-starter/compare/v1.3.0...v1.4.0) (2022-10-07)
