@@ -93,11 +93,18 @@ exports.post = async ({ appSdk }, req, res) => {
       console.log('Shipping line invoices/tracking updated')
     } catch (error) {
       if (error.response) {
-        const err = new Error(error.message)
-        err.response = error.response.data
-        err.status = error.response.status
-        err.url = error.config && error.config.url
-        console.error(err)
+        let { message } = error
+        if (error.response.data) {
+          if (typeof error.response.data === 'object') {
+            message += '\n' + JSON.stringify(error.response.data)
+          } else {
+            message += '\n' + error.response.data
+          }
+        }
+        if (error.config && error.config.url) {
+          message += '\n' + error.config.url
+        }
+        console.error(new Error(message))
       } else {
         console.error(error)
       }
