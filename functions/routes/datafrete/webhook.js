@@ -51,34 +51,36 @@ exports.post = async ({ appSdk }, req, res) => {
       shippingLine = order.shipping_lines[0]
     }
   }
-  if (
-    order.fulfillment_status &&
-    order.fulfillment_status.current === fulfillment.status &&
-    (!shippingLine ||
-      (invoices && !shippingLine.invoices) ||
-      (trackingCodes && !shippingLine.tracking_codes))
-  ) {
-    return res.sendStatus(304)
-  }
-  try {
-    const { response: { status } } = await appSdk.apiRequest(
-      storeId,
-      `orders/${order._id}/fulfillments.json`,
-      'POST',
-      fulfillment,
-      auth
-    )
-    res.sendStatus(status)
-  } catch (error) {
-    console.error(error)
-    if (error.response && error.response.status) {
-      res.status(error.response.status)
-      res.send(error.response.data)
-    } else {
-      res.sendStatus(500)
+  const isShippingLineUpdate = shippingLine &&
+    ((invoices && invoices.length) || (trackingCodes && trackingCodes.length))
+  if (order.fulfillment_status && order.fulfillment_status.current === fulfillment.status) {
+    if (!isShippingLineUpdate) {
+      console.log('> Nothing to change on shipping line:', shippingLineId, order._id)
+      return res.sendStatus(304)
+    }
+    res.sendStatus(200)
+  } else {
+    try {
+      const { response: { status } } = await appSdk.apiRequest(
+        storeId,
+        `orders/${order._id}/fulfillments.json`,
+        'POST',
+        fulfillment,
+        auth
+      )
+      res.sendStatus(status)
+    } catch (error) {
+      console.error(error)
+      if (error.response && error.response.status) {
+        res.status(error.response.status)
+        res.send(error.response.data)
+      } else {
+        res.sendStatus(500)
+      }
+      return
     }
   }
-  if (shippingLine && (invoices || trackingCodes)) {
+  if (isShippingLineUpdate) {
     console.log('> Updating shipping line:', shippingLineId, order._id)
     await appSdk.apiRequest(
       storeId,
