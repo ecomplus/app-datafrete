@@ -82,13 +82,25 @@ exports.post = async ({ appSdk }, req, res) => {
   }
   if (isShippingLineUpdate) {
     console.log('> Updating shipping line:', shippingLineId, order._id)
-    await appSdk.apiRequest(
-      storeId,
-      `orders/${order._id}/shipping_lines/${(shippingLineId || '0')}.json`,
-      'PATCH',
-      { invoices, tracking_codes: trackingCodes },
-      auth
-    )
-    console.log('Shipping line invoices/tracking updated')
+    try {
+      await appSdk.apiRequest(
+        storeId,
+        `orders/${order._id}/shipping_lines/${(shippingLineId || '0')}.json`,
+        'PATCH',
+        { invoices, tracking_codes: trackingCodes },
+        auth
+      )
+      console.log('Shipping line invoices/tracking updated')
+    } catch (error) {
+      if (error.response) {
+        const err = new Error(error.message)
+        err.response = error.response.data
+        err.status = error.response.status
+        err.url = error.config && error.config.url
+        console.error(err)
+      } else {
+        console.error(error)
+      }
+    }
   }
 }
