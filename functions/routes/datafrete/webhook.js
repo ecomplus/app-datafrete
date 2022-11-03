@@ -58,17 +58,18 @@ exports.post = async ({ appSdk }, req, res) => {
       console.log('> Nothing to change on shipping line:', shippingLineId, order._id)
       return res.sendStatus(304)
     }
-    res.sendStatus(200)
   } else {
     try {
-      const { response: { status } } = await appSdk.apiRequest(
+      await appSdk.apiRequest(
         storeId,
         `orders/${order._id}/fulfillments.json`,
         'POST',
         fulfillment,
         auth
       )
-      res.sendStatus(status)
+      if (!isShippingLineUpdate) {
+        return res.sendStatus(200)
+      }
     } catch (error) {
       console.error(error)
       if (error.response && error.response.status) {
@@ -91,6 +92,7 @@ exports.post = async ({ appSdk }, req, res) => {
         auth
       )
       console.log('Shipping line invoices/tracking updated')
+      res.sendStatus(200)
     } catch (error) {
       if (error.response) {
         let { message } = error
@@ -105,8 +107,11 @@ exports.post = async ({ appSdk }, req, res) => {
           message += '\n' + error.config.url
         }
         console.error(new Error(message))
+        res.status(error.response.status || 500)
+        res.send(error.response.data)
       } else {
         console.error(error)
+        res.sendStatus(500)
       }
     }
   }
