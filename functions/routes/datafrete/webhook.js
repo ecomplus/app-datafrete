@@ -33,31 +33,34 @@ exports.post = async ({ appSdk }, req, res) => {
   if (!order) {
     return res.sendStatus(404)
   }
-  if (order.fulfillment_status && order.fulfillment_status.current === fulfillment.status) {
+  let shippingLineId = fulfillment.shipping_line_id
+  let shippingLine
+  if (order.shipping_lines) {
+    if (!shippingLineId) {
+      for (let i = 0; i < order.shipping_lines.length; i++) {
+        if (order.shipping_lines[i].flags && order.shipping_lines[i].flags.includes('datafrete-ws')) {
+          shippingLine = order.shipping_lines[i]
+          shippingLineId = shippingLine._id
+          break
+        }
+      }
+    } else {
+      shippingLine = order.shipping_lines.find(({ _id }) => _id === shippingLineId)
+    }
+    if (!shippingLine) {
+      shippingLine = order.shipping_lines[0]
+    }
+  }
+  if (
+    order.fulfillment_status &&
+    order.fulfillment_status.current === fulfillment.status &&
+    (!shippingLine ||
+      (invoices && !shippingLine.invoices) ||
+      (trackingCodes && !shippingLine.tracking_codes))
+  ) {
     return res.sendStatus(304)
   }
   try {
-    if (invoices || trackingCodes) {
-      let shippingLineId = fulfillment.shipping_line_id
-      if (!shippingLineId) {
-        for (let i = 0; i < order.shipping_lines.length; i++) {
-          if (order.shipping_lines[i].flags && order.shipping_lines[i].flags.includes('datafrete-ws')) {
-            shippingLineId = order.shipping_lines[i]._id
-            break
-          }
-        }
-      }
-      await appSdk.apiRequest(
-        storeId,
-        `orders/${order._id}/shipping_lines/${(shippingLineId || '0')}.json`,
-        'PATCH', {
-          invoices,
-          trackingCodes
-        },
-        auth
-      )
-      console.log('Shipping line updated')
-    }
     const { response: { status } } = await appSdk.apiRequest(
       storeId,
       `orders/${order._id}/fulfillments.json`,
@@ -74,5 +77,16 @@ exports.post = async ({ appSdk }, req, res) => {
     } else {
       res.sendStatus(500)
     }
+  }
+  if (shippingLine && (invoices || trackingCodes)) {
+    console.log('> Updating shipping line:', shippingLineId, order._id)
+    await appSdk.apiRequest(
+      storeId,
+      `orders/${order._id}/shipping_lines/${(shippingLineId || '0')}.json`,
+      'PATCH',
+      { invoices, tracking_codes: trackingCodes },
+      auth
+    )
+    console.log('Shipping line invoices/tracking updated')
   }
 }
