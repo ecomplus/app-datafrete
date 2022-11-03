@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.0.2](https://github.com/ecomplus/application-starter/compare/v2.0.1...v2.0.2) (2022-11-03)
+
+
+### Bug Fixes
+
+* **deps:** update all non-major dependencies ([#54](https://github.com/ecomplus/application-starter/issues/54)) [skip ci] ([e4ae4b0](https://github.com/ecomplus/application-starter/commit/e4ae4b01a58eec591c541170c6d1766fd8b4c4a2))
+* **webhook:** better debugging shipping line update request ([738d3ec](https://github.com/ecomplus/application-starter/commit/738d3ec08bfa807c6e9908e773981fbc6c6a96c5))
+* **webhook:** better debugging shipping line update request ([b7ff5e4](https://github.com/ecomplus/application-starter/commit/b7ff5e4dc8589aee6ecc4bc246d73b97453aeba0))
+* **webhook:** never skip when invoices or tracking codes set ([75ef460](https://github.com/ecomplus/application-starter/commit/75ef460d7ed5c6134c9649983775651ef5544e04))
+* **webhook:** respond right afetr fulfillment (status) update ([97e0f57](https://github.com/ecomplus/application-starter/commit/97e0f579105573e5313585c26d40c90b30b856cb))
+* **webhook:** return api error when shipping line update fails ([fc527dc](https://github.com/ecomplus/application-starter/commit/fc527dc75ad9503409832ee046198eea5f5ae6e7))
+
 ### [2.0.1](https://github.com/ecomplus/application-starter/compare/v2.0.0...v2.0.1) (2022-11-01)
 
 
