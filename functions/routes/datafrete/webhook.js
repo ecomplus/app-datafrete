@@ -59,6 +59,7 @@ exports.post = async ({ appSdk }, req, res) => {
       return res.sendStatus(304)
     }
   } else {
+    fulfillment.flags = ['datafrete']
     try {
       await appSdk.apiRequest(
         storeId,
@@ -67,6 +68,7 @@ exports.post = async ({ appSdk }, req, res) => {
         fulfillment,
         auth
       )
+      console.log('> Fulfillment inserted:', fulfillment.status)
       if (!isShippingLineUpdate) {
         return res.sendStatus(200)
       }
