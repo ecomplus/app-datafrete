@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.0.3](https://github.com/ecomplus/application-starter/compare/v2.0.2...v2.0.3) (2022-11-07)
+
+
+### Bug Fixes
+
+* add flag to fullfillment on webhook and debug post request ([f7f2570](https://github.com/ecomplus/application-starter/commit/f7f25702e13f5e7a0ef4de9c43711457479403c4))
+
 ### [2.0.2](https://github.com/ecomplus/application-starter/compare/v2.0.1...v2.0.2) (2022-11-03)
 
 
