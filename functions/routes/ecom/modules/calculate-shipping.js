@@ -252,7 +252,7 @@ exports.post = ({ appSdk }, req, res) => {
           } else {
             result = data
           }
-          logger.warn('[calc] datafrete invalid result:', data, calcParams)
+          logger.warn('[calc] datafrete invalid result:', { ...data, calcParams })
           if (result && result.data) {
             // Datafrete error message
             return res.status(409).send({
