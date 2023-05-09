@@ -1,4 +1,5 @@
 const axios = require('axios')
+const logger = require('firebase-functions/logger')
 const ecomUtils = require('@ecomplus/utils')
 
 exports.post = ({ appSdk }, req, res) => {
@@ -109,73 +110,74 @@ exports.post = ({ appSdk }, req, res) => {
 
   if (params.items) {
     // send POST request to Datafrete REST API
-    return axios.post(
-      appData.datafrete_endpoint || 'https://apresentacao.api.dev.datafreteapi.com',
-      {
-        token,
-        cepOrigem: originZip,
-        cepDestino: destinationZip,
-        infComp: {
-          doc_empresa: docNumber,
-          plataforma: 'ECOM'
-        },
+    const calcParams = {
+      token,
+      cepOrigem: originZip,
+      cepDestino: destinationZip,
+      infComp: {
+        doc_empresa: docNumber,
+        plataforma: 'ECOM'
+      },
 
-        produtos: params.items.map(item => {
-          const { sku, name, quantity, dimensions, weight } = item
-          // parse cart items to Datafrete schema
-          let kgWeight = 0
-          if (weight && weight.value) {
-            switch (weight.unit) {
-              case 'g':
-                kgWeight = weight.value / 1000
-                break
-              case 'mg':
-                kgWeight = weight.value / 1000000
-                break
-              default:
-                kgWeight = weight.value
-            }
+      produtos: params.items.map(item => {
+        const { sku, name, quantity, dimensions, weight } = item
+        // parse cart items to Datafrete schema
+        let kgWeight = 0
+        if (weight && weight.value) {
+          switch (weight.unit) {
+            case 'g':
+              kgWeight = weight.value / 1000
+              break
+            case 'mg':
+              kgWeight = weight.value / 1000000
+              break
+            default:
+              kgWeight = weight.value
           }
-          const cmDimensions = {}
-          if (dimensions) {
-            for (const side in dimensions) {
-              const dimension = dimensions[side]
-              if (dimension && dimension.value) {
-                switch (dimension.unit) {
-                  case 'm':
-                    cmDimensions[side] = dimension.value * 100
-                    break
-                  case 'mm':
-                    cmDimensions[side] = dimension.value / 10
-                    break
-                  default:
-                    cmDimensions[side] = dimension.value
-                }
+        }
+        const cmDimensions = {}
+        if (dimensions) {
+          for (const side in dimensions) {
+            const dimension = dimensions[side]
+            if (dimension && dimension.value) {
+              switch (dimension.unit) {
+                case 'm':
+                  cmDimensions[side] = dimension.value * 100
+                  break
+                case 'mm':
+                  cmDimensions[side] = dimension.value / 10
+                  break
+                default:
+                  cmDimensions[side] = dimension.value
               }
             }
           }
-          return {
-            sku,
-            descricao: name,
-            altura: cmDimensions.height || 0,
-            largura: cmDimensions.width || 0,
-            comprimento: cmDimensions.length || 0,
-            peso: kgWeight,
-            preco: ecomUtils.price(item),
-            qtd: quantity,
-            volume: 0
-          }
-        })
-      }
-    )
+        }
+        return {
+          sku,
+          descricao: name,
+          altura: cmDimensions.height || 0,
+          largura: cmDimensions.width || 0,
+          comprimento: cmDimensions.length || 0,
+          peso: kgWeight,
+          preco: ecomUtils.price(item),
+          qtd: quantity,
+          volume: 0
+        }
+      })
+    }
 
+    return axios.post(
+      appData.datafrete_endpoint || 'https://apresentacao.api.dev.datafreteapi.com',
+      calcParams
+    )
       .then(({ data, status }) => {
         let result
         if (typeof data === 'string') {
           try {
             result = JSON.parse(data)
           } catch (e) {
-            console.log('> Datafrete invalid JSON response')
+            logger.warn(`[calc] datafrete invalid json response "${data}" for ${JSON.stringify(calcParams)}`)
             return res.status(409).send({
               error: 'CALCULATE_INVALID_RES',
               message: data
@@ -250,7 +252,7 @@ exports.post = ({ appSdk }, req, res) => {
           } else {
             result = data
           }
-          console.log('> Datafrete invalid result:', data)
+          logger.info('[calc] datafrete invalid result:', data)
           if (result && result.data) {
             // Datafrete error message
             return res.status(409).send({
@@ -260,7 +262,7 @@ exports.post = ({ appSdk }, req, res) => {
           }
           message = `${message} (${response.status})`
         } else {
-          console.error(err)
+          logger.error(err)
         }
         return res.status(409).send({
           error: 'CALCULATE_ERR',
