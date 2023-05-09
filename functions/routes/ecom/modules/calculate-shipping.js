@@ -177,7 +177,7 @@ exports.post = ({ appSdk }, req, res) => {
           try {
             result = JSON.parse(data)
           } catch (e) {
-            logger.warn(`[calc] datafrete invalid json response "${data}" for ${JSON.stringify(calcParams)}`)
+            logger.warn(`[calc] datafrete invalid json response "${data}"`, calcParams)
             return res.status(409).send({
               error: 'CALCULATE_INVALID_RES',
               message: data
@@ -252,7 +252,7 @@ exports.post = ({ appSdk }, req, res) => {
           } else {
             result = data
           }
-          logger.info('[calc] datafrete invalid result:', data)
+          logger.warn('[calc] datafrete invalid result:', data, calcParams)
           if (result && result.data) {
             // Datafrete error message
             return res.status(409).send({
