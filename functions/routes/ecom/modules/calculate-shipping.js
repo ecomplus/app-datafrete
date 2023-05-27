@@ -109,6 +109,12 @@ exports.post = ({ appSdk }, req, res) => {
   }
 
   if (params.items) {
+    let discountFactor = 0
+    const { amount } = params
+    if (amount && amount.discount && amount.subtotal) {
+      discountFactor = amount.discount / amount.subtotal
+    }
+
     // send POST request to Datafrete REST API
     const calcParams = {
       token,
@@ -153,6 +159,7 @@ exports.post = ({ appSdk }, req, res) => {
             }
           }
         }
+        const price = ecomUtils.price(item)
         return {
           sku,
           descricao: name,
@@ -160,7 +167,7 @@ exports.post = ({ appSdk }, req, res) => {
           largura: cmDimensions.width || 0,
           comprimento: cmDimensions.length || 0,
           peso: kgWeight,
-          preco: ecomUtils.price(item),
+          preco: parseInt((price - discountFactor * price) * 100, 10) / 100,
           qtd: quantity,
           volume: 0
         }
